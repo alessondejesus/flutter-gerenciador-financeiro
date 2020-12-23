@@ -1,11 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
-class TransactionForm  extends StatelessWidget {
-
-  final titleController = new TextEditingController();
-  final valueController = new TextEditingController();
+class TransactionForm  extends StatefulWidget {
+//tem que ser statefull para o modal funcionar
+//quando usar statefull tem que instanciar os atributos pelo this.widget
   final void Function(String title, double value) onSubmit;
+
+  TransactionForm(this.onSubmit);
+
+  @override
+  _TransactionFormState createState() => _TransactionFormState();
+}
+
+class _TransactionFormState extends State<TransactionForm> {
+  final titleController = new TextEditingController();
+
+  final valueController = new TextEditingController();
 
   _submitForm() {
     final title = titleController.text;
@@ -15,10 +25,8 @@ class TransactionForm  extends StatelessWidget {
       return;
     }
 
-    this.onSubmit(title, value);
+    this.widget.onSubmit(title, value);
   }
-
-  TransactionForm(this.onSubmit);
 
   @override
   Widget build(BuildContext context) {
