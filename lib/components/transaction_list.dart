@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:gerenciador_financeiro/models/transaction.dart';
@@ -13,7 +14,20 @@ class TransactionList extends StatelessWidget {
     return Container(
       height: 500,
       margin: EdgeInsets.only(top: 10),
-      child: ListView.builder(
+      child: transactions.isEmpty ? Column(
+        children: [
+          Text('Nenhuma transação encontrada',
+          style: Theme.of(context).textTheme.title,
+          ),
+          SizedBox(height: 20),
+          Container(
+            height: 300,
+            child: Image.asset('assets/images/waiting.png',
+              fit: BoxFit.cover,
+            ),
+          )
+        ],
+      ) : ListView.builder(
         itemCount: transactions.length,
         itemBuilder: (ctx, index){
           final element = transactions[index];

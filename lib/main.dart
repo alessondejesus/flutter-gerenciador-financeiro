@@ -45,10 +45,10 @@ class _MyHomePageState extends State<MyHomePage> {
     Navigator.of(context).pop();
   }
 
-  final _transactions = [
-    Transaction(id: '1', title: 'Água', value: 25, date: DateTime.now()),
-    Transaction(id: '2', title: 'Luz', value: 36, date: DateTime.now()),
-    Transaction(id: '3', title: 'Internet', value: 50, date: DateTime.now()),
+  final List<Transaction>_transactions = [
+    // Transaction(id: '1', title: 'Água', value: 25, date: DateTime.now()),
+    // Transaction(id: '2', title: 'Luz', value: 36, date: DateTime.now()),
+    // Transaction(id: '3', title: 'Internet', value: 50, date: DateTime.now()),
   ];
 
   _openTransactionFormModal(BuildContext context) {
