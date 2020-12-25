@@ -13,6 +13,10 @@ class ExpensesApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: MyHomePage(),
+      theme: ThemeData(
+        primarySwatch: Colors.deepPurple,
+        fontFamily: 'Quicksand'
+      ),
     );
   }
 }
@@ -77,7 +81,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 Container(
                   height: 50,
                   child: Card(
-                    color: Colors.deepPurple,
+                    color: Theme.of(context).primaryColor,
                     elevation: 10,
                     child: (Text('Grafico')),
                   ),
