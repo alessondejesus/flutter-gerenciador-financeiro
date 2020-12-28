@@ -33,44 +33,26 @@ class TransactionList extends StatelessWidget {
           final element = transactions[index];
 
           return Card(
-            child: Row(
-              children: [
-                Container(
-                  margin:
-                  EdgeInsets.symmetric(horizontal: 15, vertical: 10),
-                  decoration: BoxDecoration(
-                    border: Border.all(
-                        width: 2,
-                        color: Theme.of(context).primaryColor
-                    ),
+            elevation: 2,
+            child: ListTile(
+              leading: CircleAvatar(
+                radius: 30,
+                child: Padding(
+                  padding: const EdgeInsets.all(7),
+                  child: FittedBox(
+                      child: Text('R\$${element.value}')
                   ),
-                  padding: EdgeInsets.all(10),
-                  child: (Text(
-                    'R\$ ${element.value.toStringAsFixed(2)}',
-                    style: TextStyle(
-                        fontSize: 14,
-                        fontWeight: FontWeight.bold,
-                        color: Theme.of(context).primaryColor
-                    ),
-                  )),
                 ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      element.title,
-                      style: TextStyle(
-                          fontSize: 16, fontWeight: FontWeight.bold),
-                    ),
-                    Text(
-                      DateFormat('d MMM y').format(element.date),
-                      style: TextStyle(
-                          color: Colors.grey[700]
-                      ),
-                    ),
-                  ],
+              ),
+              title: Text(
+                element.title,
+                style: TextStyle(
+                  fontWeight: FontWeight.bold
                 ),
-              ],
+              ),
+              subtitle: Text(
+                DateFormat('d MMM y').format(element.date).toString()
+              ),
             ),
           );
         },
