@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:gerenciador_financeiro/components/chart.dart';
 import 'components/transaction_form.dart';
 import 'models/transaction.dart';
 import 'components/transaction_list.dart';
@@ -46,11 +47,16 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   final List<Transaction>_transactions = [
-    // Transaction(id: '1', title: 'Água', value: 25, date: DateTime.now()),
-    // Transaction(id: '2', title: 'Luz', value: 36, date: DateTime.now()),
-    // Transaction(id: '3', title: 'Internet', value: 50, date: DateTime.now()),
+    Transaction(id: '1', title: 'Água', value: 25, date: DateTime.now().subtract(Duration(days: 1))),
+    Transaction(id: '2', title: 'Luz', value: 36, date: DateTime.now().subtract(Duration(days: 2))),
+    Transaction(id: '3', title: 'Internet', value: 50, date: DateTime.now().subtract(Duration(days: 3))),
   ];
 
+  List<Transaction> get _recentTransactions {
+    return _transactions.where((element){
+      return element.date.isAfter(DateTime.now().subtract(Duration(days: 7)));
+    }).toList();
+  }
   _openTransactionFormModal(BuildContext context) {
     showModalBottomSheet(
         context: context,
@@ -78,14 +84,7 @@ class _MyHomePageState extends State<MyHomePage> {
             Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                Container(
-                  height: 50,
-                  child: Card(
-                    color: Theme.of(context).primaryColor,
-                    elevation: 10,
-                    child: (Text('Grafico')),
-                  ),
-                ),
+                Chart(_recentTransactions),
                 new TransactionList(_transactions),
               ],
             ),
