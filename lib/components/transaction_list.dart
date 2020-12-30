@@ -12,56 +12,52 @@ class TransactionList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 500,
-      margin: EdgeInsets.only(top: 10),
-      child: transactions.isEmpty ? Column(
-        children: [
-          Text('Nenhuma transação encontrada',
-          style: Theme.of(context).textTheme.title,
+    return transactions.isEmpty ? Column(
+      children: [
+        Text('Nenhuma transação encontrada',
+        style: Theme.of(context).textTheme.title,
+        ),
+        SizedBox(height: 20),
+        Container(
+          height: 300,
+          child: Image.asset('assets/images/waiting.png',
+            fit: BoxFit.cover,
           ),
-          SizedBox(height: 20),
-          Container(
-            height: 300,
-            child: Image.asset('assets/images/waiting.png',
-              fit: BoxFit.cover,
-            ),
-          )
-        ],
-      ) : ListView.builder(
-        itemCount: transactions.length,
-        itemBuilder: (ctx, index){
-          final element = transactions[index];
+        )
+      ],
+    ) : ListView.builder(
+      itemCount: transactions.length,
+      itemBuilder: (ctx, index){
+        final element = transactions[index];
 
-          return Card(
-            elevation: 2,
-            child: ListTile(
-              trailing: FlatButton(
-                child: Icon(Icons.delete, color: Colors.red[500],),
-                onPressed: () => removeTransactionFunction(element.id),
-              ),
-              leading: CircleAvatar(
-                radius: 30,
-                child: Padding(
-                  padding: const EdgeInsets.all(7),
-                  child: FittedBox(
-                      child: Text('R\$${element.value}')
-                  ),
+        return Card(
+          elevation: 2,
+          child: ListTile(
+            trailing: FlatButton(
+              child: Icon(Icons.delete, color: Colors.red[500],),
+              onPressed: () => removeTransactionFunction(element.id),
+            ),
+            leading: CircleAvatar(
+              radius: 30,
+              child: Padding(
+                padding: const EdgeInsets.all(7),
+                child: FittedBox(
+                    child: Text('R\$${element.value}')
                 ),
-              ),
-              title: Text(
-                element.title,
-                style: TextStyle(
-                  fontWeight: FontWeight.bold
-                ),
-              ),
-              subtitle: Text(
-                DateFormat('d MMM y').format(element.date).toString()
               ),
             ),
-          );
-        },
-      ),
+            title: Text(
+              element.title,
+              style: TextStyle(
+                fontWeight: FontWeight.bold
+              ),
+            ),
+            subtitle: Text(
+              DateFormat('d MMM y').format(element.date).toString()
+            ),
+          ),
+        );
+      },
     );
   }
 }
