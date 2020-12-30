@@ -29,24 +29,29 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
 
-  _addTransaction(String title, double value) {
+  _addTransaction(String title, double value, DateTime date) {
     final transaction = Transaction(
         id: Random().nextDouble().toString(),
         title: title,
         value: value,
-        date: DateTime.now());
-
-    print(title);
-    print(value);
+        date: date);
 
     setState(() {
-      _transactions.add(transaction);
+        _transactions.add(transaction);
     });
 
     Navigator.of(context).pop();
   }
 
-  final List<Transaction>_transactions = [
+  _removeTransaction(String index){
+    setState(() {
+      _transactions.removeWhere((element){
+        return element.id == index;
+      });
+    });
+  }
+
+  final List<Transaction> _transactions = [
     Transaction(id: '1', title: 'Água', value: 25, date: DateTime.now().subtract(Duration(days: 1))),
     Transaction(id: '2', title: 'Luz', value: 36, date: DateTime.now().subtract(Duration(days: 2))),
     Transaction(id: '3', title: 'Comida', value: 70, date: DateTime.now().subtract(Duration(days: 3))),
@@ -89,7 +94,7 @@ class _MyHomePageState extends State<MyHomePage> {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 Chart(_recentTransactions),
-                new TransactionList(_transactions),
+                new TransactionList(_transactions, _removeTransaction),
               ],
             ),
           ],
@@ -99,7 +104,7 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Icon(Icons.add),
         onPressed: () => _openTransactionFormModal(context),
       ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
   }
 }

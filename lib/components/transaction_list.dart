@@ -6,8 +6,9 @@ import 'package:gerenciador_financeiro/models/transaction.dart';
 class TransactionList extends StatelessWidget {
 
   final List <Transaction> transactions;
+  final void Function(String) removeTransactionFunction;
 
-  TransactionList(this.transactions);
+  TransactionList(this.transactions, this.removeTransactionFunction);
 
   @override
   Widget build(BuildContext context) {
@@ -35,6 +36,10 @@ class TransactionList extends StatelessWidget {
           return Card(
             elevation: 2,
             child: ListTile(
+              trailing: FlatButton(
+                child: Icon(Icons.delete, color: Colors.red[500],),
+                onPressed: () => removeTransactionFunction(element.id),
+              ),
               leading: CircleAvatar(
                 radius: 30,
                 child: Padding(
